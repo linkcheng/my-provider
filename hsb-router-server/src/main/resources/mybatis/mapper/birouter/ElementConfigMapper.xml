@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hsb.router.mapper.birouter.ElementConfigMapper">
+    <cache eviction="LRU" size="1024" readOnly="true"/>
+
+    <resultMap id="elementConfigMap" type="cn.hsb.router.entity.ElementConfig">
+        <result property="name" column="name"/>
+        <result property="path" column="path"/>
+    </resultMap>
+
+    <sql id="replaceMany" >
+        REPLACE INTO
+            `element_config` (`name`, path, is_active)
+        VALUES
+            <foreach item="item" index="index" collection="list" separator=",">
+                (#{item.name}, #{item.path}, 1)
+            </foreach>
+    </sql>
+
+    <select id="getAll" resultMap="elementConfigMap">
+        SELECT
+            `name`
+            ,path
+        FROM `element_config`
+        WHERE
+            is_active = 1
+    </select>
+
+    <select id="getMany" parameterType="list" resultMap="elementConfigMap">
+        SELECT
+            `name`
+            ,path
+        FROM `element_config`
+        WHERE `name` IN
+            <foreach item="item" index="index" collection="list"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            AND is_active = 1
+    </select>
+
+    <select id="getOne" parameterType="string" resultMap="elementConfigMap">
+        SELECT
+            `name`
+            ,path
+        FROM `element_config`
+        WHERE
+            `name` = #{name}
+            AND is_active = 1
+    </select>
+    
+    <insert id="insertOne" parameterType="ElementConfig">
+        REPLACE INTO
+            `element_config` (`name`, path, is_active)
+        VALUES
+            (#{elementConfig.name}, #{elementConfig.path}, 1)
+    </insert>
+
+    <insert id="insertMany" parameterType="list">
+        <include refid="replaceMany"/>
+    </insert>
+
+    <update id="updateOne" parameterType="ElementConfig">
+        UPDATE `element_config`
+        SET
+            path = #{elementConfig.path}
+            , is_active = 1
+        WHERE
+            `name` = #{elementConfig.name}
+    </update>
+    
+    <insert id="updateMany" parameterType="list">
+        <include refid="replaceMany"/>
+    </insert>
+
+    <delete id="deleteOne" parameterType="string">
+        UPDATE `element_config`
+        SET
+            is_active = 0
+        WHERE
+            `name` = #{name}
+    </delete>
+
+    <delete id="deleteMany" parameterType="java.util.Set">
+        UPDATE `element_config`
+        SET
+            is_active = 0
+        WHERE `name` IN
+            <foreach item="item" index="index" collection="set"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+    </delete>
+</mapper>

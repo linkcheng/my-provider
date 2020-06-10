@@ -1,0 +1,29 @@
+server.port: 11000
+
+spring.application.name: hsb-model
+#spring.application.name: hsb-default
+
+interface.name: /data_service/element
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-test.hsb.cn
+        namespace: 692fda9b-7d6b-4b31-8c33-d83b91e9c08f
+#    sentinel:
+#      transport:
+#        dashboard: sentinel-test.hsb.cn:18080
+#        port: 8719
+
+ribbon:
+  ReadTimeout: 15000
+  ConnectTimeout: 30000
+
+feign.sentinel.enabled: true
+
+# 配置异构服务
+sidecar:
+  ip: localhost
+  port: 5000
+  health-check-url: http://${sidecar.ip}:${sidecar.port}/health

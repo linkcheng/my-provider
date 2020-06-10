@@ -1,0 +1,55 @@
+server.port: 8000
+
+spring.application.name: hsb-router
+
+management.endpoints.web.exposure.include: "*"
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-test.hsb.cn
+        namespace: 692fda9b-7d6b-4b31-8c33-d83b91e9c08f
+#    sentinel:
+#      transport:
+#        dashboard: sentinel-test.hsb.cn:18080
+#        port: 8719
+#      datasource:
+#        flow:
+#          nacos:
+#            server-addr: nacos-test.hsb.cn
+#            dataId: ${spring.application.name}-${spring.profiles.active}-flow-rules
+#            namespace: 692fda9b-7d6b-4b31-8c33-d83b91e9c08f
+#            data-type: json
+#            rule-type: flow
+
+  datasource:
+    bi-router:
+      url: jdbc:mysql://127.0.0.1:3306/hsb_bi_router?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: 12345678
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+
+executor:
+  config:
+    corePoolSize: 4
+    maxPoolSize: 8
+    keepAliveSeconds: 600
+    queueCapacity: 1000
+    threadNamePrefix: ReqeustExecutor-

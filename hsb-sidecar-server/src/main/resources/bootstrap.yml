@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos-test.hsb.cn
+        file-extension: yaml
+        namespace: 692fda9b-7d6b-4b31-8c33-d83b91e9c08f
