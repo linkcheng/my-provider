@@ -35,7 +35,7 @@
         <logback.classic.verson>1.2.3</logback.classic.verson>
         <sentinel.version>1.7.0</sentinel.version>
 
-        <mysql.connector.version>5.1.47</mysql.connector.version>
+        <mysql.connector.version>8.0.16</mysql.connector.version>
         <druid.version>1.1.21</druid.version>
         <mybatis.spring.starter.version>2.1.1</mybatis.spring.starter.version>
 
