@@ -30,7 +30,7 @@
         <commons.pool2.version>2.8.0</commons.pool2.version>
         <hutool.all.version>5.1.0</hutool.all.version>
         <lombok.verson>1.18.12</lombok.verson>
-        <junit.verson>4.12</junit.verson>
+        <junit.verson>4.13.1</junit.verson>
         <sentry.version>1.7.30</sentry.version>
         <logback.classic.verson>1.2.3</logback.classic.verson>
         <sentinel.version>1.7.0</sentinel.version>
